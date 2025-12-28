@@ -35,14 +35,14 @@ function TicketPurchase() {
 const buyTicket = async () => {
   const token = await user.getIdToken();
 
-  const response = await fetch("http://localhost:3000/api/buy-ticket", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${token}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ eventId: selectedEvent })
-  });
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/buy-ticket`, {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${token}`,
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ eventId: selectedEvent })
+});
 
   if (response.ok) {
     alert("Квиток куплено!");
