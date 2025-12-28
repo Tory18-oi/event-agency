@@ -34,9 +34,9 @@ function EventList() {
   }, [user]);
 
   // Функція збереження (як раніше)
- const toggleSaveEvent = async (eventId) => {
+const toggleSaveEvent = async (eventId) => {
   if (!user) {
-    alert("Увійдіть в акаунт");
+    alert("Увійдіть в акаунт!");
     return;
   }
 
@@ -44,9 +44,9 @@ function EventList() {
   const endpoint = isSaved ? "/api/unsave-event" : "/api/save-event";
 
   try {
-    const token = await user.getIdToken(); // отримуємо Firebase ID token
+    const token = await user.getIdToken();
 
-    const response = await fetch(`http://localhost:3000${endpoint}`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}${endpoint}`, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -63,11 +63,12 @@ function EventList() {
         setSavedEvents([...savedEvents, eventId]);
       }
     } else {
-      alert("Помилка збереження");
+      const errorData = await response.json();
+      alert(errorData.error || "Помилка збереження");
     }
   } catch (error) {
-    console.error(error);
-    alert("Помилка мережі");
+    console.error("Fetch error:", error);
+    alert("Помилка мережі або бекенд не відповідає");
   }
 };
 
