@@ -1,0 +1,222 @@
+/* Сторінка покупки квитків — в стилі всього проекту */
+#tickets {
+  min-height: calc(100vh - 200px);
+  background: linear-gradient(to bottom, #f5efff, #e6d9ff);
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#tickets h2 {
+  font-size: 3.5rem;
+  margin-bottom: 4rem;
+  background: linear-gradient(135deg, #8b5cf6, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  font-weight: 600;
+  text-shadow: 0 10px 30px rgba(192, 132, 252, 0.3);
+}
+
+/* Форма покупки */
+.purchase-form {
+  background-color: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 20px 60px rgba(192, 132, 252, 0.3);
+  padding: 3rem;
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 4rem;
+  border: 1px solid rgba(192, 132, 252, 0.2);
+  display: flex;              /* Новий: flex для контролю елементів */
+  flex-direction: column;     /* Вертикально на мобілках */
+  gap: 2rem;                  /* Відступ між select і кнопкою */
+  align-items: center;        /* По центру */
+}
+.purchase-form .select-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;           /* Обмежуємо ширину select */
+}
+
+.purchase-form select {
+  width: 100%;                /* Повна ширина в своєму контейнері */
+  padding: 1.4rem 1.8rem;
+  font-size: 1.5rem;
+  border-radius: 30px;        /* Більш круглі кути, як в інпутах профілю */
+  border: 2px solid #d0b8ff;
+  background-color: #ffffff;
+  color: #6b46c1;
+  cursor: pointer;
+  transition: all 0.3s;
+  appearance: none;           /* Прибираємо стандартну стрілку браузера */
+  padding-right: 3.5rem;      /* Місце для нашої стрілки */
+}
+
+.purchase-form select:focus {
+  outline: none;
+  border-color: #c084fc;
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.4);
+}
+.purchase-form .select-wrapper::after {
+  content: "▼";
+  position: absolute;
+  top: 50%;
+  right: 1.8rem;
+  transform: translateY(-50%);
+  font-size: 1.6rem;
+  color: #c084fc;
+  pointer-events: none;
+}
+
+.buy-btn {
+  background: linear-gradient(135deg, #c084fc, #a78bfa);
+  color: white;
+  padding: 1.4rem 3rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.4s;
+  box-shadow: 0 10px 30px rgba(192, 132, 252, 0.4);
+  min-width: 260px;
+}
+
+.buy-btn:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(192, 132, 252, 0.5);
+}
+
+.buy-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Список куплених квитків */
+.tickets-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 3rem;
+  width: 90%;
+  max-width: 1400px;
+}
+
+.ticket-card {
+  background-color: #ffffff;
+  border-radius: 28px;
+  padding: 3rem;
+  box-shadow: 0 15px 50px rgba(192, 132, 252, 0.2);
+  text-align: center;
+  transition: all 0.4s;
+  border: 1px solid rgba(192, 132, 252, 0.2);
+}
+
+.ticket-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 60px rgba(192, 132, 252, 0.4);
+}
+
+.ticket-card h3 {
+  font-size: 2rem;
+  color: #8b5cf6;
+  margin-bottom: 1.5rem;
+}
+
+.ticket-card p {
+  font-size: 1.5rem;
+  color: #6b46c1;
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.qr-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 24px;
+  display: inline-block;
+  margin: 2.5rem 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Кнопка скасування квитка */
+.cancel-btn {
+  background: transparent;
+  border: 2px solid #ff6b9d;
+  color: #ff6b9d;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s;
+  margin-top: 1rem;
+}
+
+.cancel-btn:hover {
+  background-color: #ff6b9d;
+  color: white;
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+}
+
+/* Якщо квитків немає */
+.empty-tickets {
+  font-size: 1.8rem;
+  color: #8b5cf6;
+  opacity: 0.9;
+  margin: 6rem 0;
+  text-align: center;
+  line-height: 1.8;
+  font-style: italic;
+}
+
+/* Мобілки */
+@media (max-width: 768px) {
+  #tickets {
+    padding: 3rem 1rem;
+  }
+
+  #tickets h2 {
+    font-size: 2.8rem;
+  }
+
+  .purchase-form {
+    padding: 2rem;
+  }
+
+  .purchase-form select {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .buy-btn {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .tickets-list {
+    grid-template-columns: 1fr;
+  }
+
+  .ticket-card {
+    padding: 2rem;
+  }
+}
+@media (max-width: 768px) {
+  .purchase-form {
+    padding: 2rem;
+  }
+
+  .purchase-form .select-wrapper {
+    max-width: 100%;
+  }
+
+  .buy-btn {
+    width: 100%;
+  }
+}

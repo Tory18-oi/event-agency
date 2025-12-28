@@ -1,0 +1,161 @@
+/* Сторінка сканера квитків — в єдиному стилі проекту */
+.scanner-page {
+  min-height: calc(100vh - 200px);
+  background: linear-gradient(to bottom, #f5efff, #e6d9ff);
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scanner-container {
+  background-color: #ffffff;
+  border-radius: 32px;
+  box-shadow: 0 20px 60px rgba(192, 132, 252, 0.3);
+  padding: 4rem;
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  color: #6b46c1;
+  border: 1px solid rgba(192, 132, 252, 0.2);
+}
+
+.scanner-container h2 {
+  font-size: 3.5rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, #8b5cf6, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+  text-shadow: 0 10px 30px rgba(192, 132, 252, 0.3);
+}
+
+/* Кнопка "Почати сканування" */
+.start-btn {
+  background: linear-gradient(135deg, #c084fc, #a78bfa);
+  color: white;
+  padding: 1.5rem 3.5rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.4s;
+  box-shadow: 0 10px 30px rgba(192, 132, 252, 0.4);
+}
+
+.start-btn:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(192, 132, 252, 0.5);
+}
+
+/* Кнопка "Зупинити сканування" */
+.stop-btn {
+  background: transparent;
+  border: 2px solid #ff6b9d;
+  color: #ff6b9d;
+  padding: 1rem 2.5rem;
+  margin-top: 2rem;
+  border-radius: 30px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.stop-btn:hover {
+  background-color: #ff6b9d;
+  color: white;
+  transform: translateY(-6px);
+}
+
+/* Повідомлення про помилку */
+.error-message {
+  color: #ff6b9d;
+  font-size: 1.8rem;
+  margin: 3rem 0;
+  font-weight: 500;
+  padding: 1.5rem;
+  background-color: rgba(255, 107, 157, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 107, 157, 0.3);
+}
+
+/* Блок валідного квитка */
+.valid-ticket {
+  margin: 3rem 0;
+  padding: 3rem;
+  background-color: #f8f0ff;
+  border-radius: 28px;
+  border: 3px solid #c084fc;
+  box-shadow: 0 15px 50px rgba(192, 132, 252, 0.3);
+}
+
+.valid-ticket h3 {
+  color: #8b5cf6;
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.valid-ticket p {
+  font-size: 1.6rem;
+  color: #6b46c1;
+  margin: 1.2rem 0;
+  line-height: 1.6;
+}
+
+/* Кнопка "Пропустити" (позначити як використаний) */
+.use-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  padding: 1.5rem 4rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 2.5rem;
+  transition: all 0.4s;
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+}
+
+.use-btn:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(34, 197, 94, 0.5);
+}
+
+/* Відео/камера сканера */
+#reader {
+  margin: 3rem auto;
+  max-width: 500px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 15px 50px rgba(192, 132, 252, 0.3);
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  .scanner-page {
+    padding: 3rem 1rem;
+  }
+
+  .scanner-container {
+    padding: 2.5rem;
+  }
+
+  .scanner-container h2 {
+    font-size: 2.8rem;
+  }
+
+  .start-btn, .use-btn {
+    width: 100%;
+    padding: 1.4rem;
+    font-size: 1.6rem;
+  }
+
+  #reader {
+    max-width: 100%;
+  }
+}

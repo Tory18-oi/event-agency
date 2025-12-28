@@ -1,0 +1,176 @@
+/* Сторінка "Мої квитки" — лавандовий фон */
+.my-tickets {
+  min-height: calc(100vh - 200px);
+  background: linear-gradient(to bottom, #ffffff, #d3b3d3);
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.my-tickets h2 {
+  font-size: 3.5rem;
+  margin-bottom: 4rem;
+  background: linear-gradient(135deg, #8b5cf6, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  font-weight: 500;
+  text-shadow: 0 10px 30px rgba(192, 132, 252, 0.3);
+}
+
+/* Повідомлення, якщо квитків немає */
+.empty-message {
+  font-size: 1.8rem;
+  color: #8b5cf6;
+  opacity: 0.9;
+  margin: 6rem 0;
+  line-height: 1.8;
+}
+
+/* Сітка квитків */
+.tickets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
+  width: 90%;
+  max-width: 1400px;
+}
+
+/* Flip контейнер — адаптивна висота */
+.ticket-flip-container {
+  perspective: 1200px;
+  width: 100%;
+  height: auto;
+  min-height: 520px; /* трохи більше, щоб все помістилося */
+  cursor: pointer;
+}
+
+/* Flip картка */
+.ticket-flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-style: preserve-3d;
+}
+
+.ticket-flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Лицьова і зворотна сторона */
+.ticket-front, .ticket-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 15px 50px rgba(192, 132, 252, 0.2);
+  padding: 2.5rem 2rem; /* трохи менше по боках */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.ticket-front {
+  z-index: 2;
+}
+
+.ticket-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, #f5efff, #e6d9ff);
+  color: #6b46c1;
+}
+
+/* Заголовок події — гарний перенос і обрізання */
+.ticket-front h3 {
+  font-size: 1.8rem;
+  color: #8b5cf6;
+  margin: 0 0 1rem;
+  font-weight: 600;
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: none;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Текст інформації */
+.ticket-front p {
+  font-size: 1.2rem;
+  color: #6b46c1;
+  margin: 0.6rem 0;
+  line-height: 1.4;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* Підказка */
+.flip-hint {
+  margin-top: auto;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #a78bfa;
+  font-style: italic;
+}
+
+/* Кнопка "Повернути" — завжди внизу */
+.cancel-btn {
+  margin-top: auto;
+  width: 80%;
+  max-width: 260px;
+  background: linear-gradient(135deg, #ff6b9d, #ff477e);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s;
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+}
+
+.cancel-btn:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(255, 107, 157, 0.5);
+}
+
+/* QR на звороті */
+.qr-container-large {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  margin: 2rem 0;
+}
+
+/* Мобілки */
+@media (max-width: 768px) {
+  .my-tickets {
+    padding: 3rem 1rem;
+  }
+
+  .tickets-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ticket-flip-container {
+    min-height: 480px;
+  }
+
+  .ticket-front, .ticket-back {
+    padding: 2rem 1.5rem;
+  }
+}

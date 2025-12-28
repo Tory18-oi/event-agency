@@ -1,0 +1,13 @@
+footer {
+  background: linear-gradient(to bottom, #e6d9ff, #d0b8ff);
+  padding: 3rem;
+  text-align: center;
+  width: 100%;
+  margin-top: auto; /* притискає футер вниз */
+}
+
+footer p {
+  margin: 0;
+  color:#6b46c1;
+  font-size: 1.2rem;
+}

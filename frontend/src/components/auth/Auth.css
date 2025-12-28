@@ -1,0 +1,96 @@
+.auth-form {
+  max-width: 500px;
+  margin: 6rem auto;
+  padding: 4rem;
+  background-color: #ffffff; /* білий фон */
+  border-radius: 28px;
+  box-shadow: 0 20px 60px #8b0000(192, 132, 252, 0.3);
+  text-align: center;
+  border: 1px solid #8b0000(192, 132, 252, 0.2);
+}
+
+.auth-form h2 {
+  font-size: 3.2rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, #8b5cf6, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 1.4rem;
+  margin: 1.2rem 0;
+  border-radius: 16px;
+  border: 2px solid #d0b8ff;
+  background-color: #8b0000;
+  color: #6b46c1;
+  font-size: 1.3rem;
+  transition: all 0.3s;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #c084fc;
+  box-shadow: 0 0 15px rgba(192, 132, 252, 0.4);
+  background-color: #ffffff;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 1.4rem;
+  background: linear-gradient(135deg, #c084fc, #a78bfa);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 2rem;
+  transition: all 0.4s;
+  box-shadow: 0 10px 30px rgba(192, 132, 252, 0.4);
+}
+
+.auth-form button:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(192, 132, 252, 0.5);
+}
+
+.error {
+  color: #ff6b9d;
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.auth-form p {
+  margin-top: 2.5rem;
+  font-size: 1.3rem;
+  color: #8b5cf6;
+}
+
+.auth-form a {
+  color: #c084fc;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.auth-form a:hover {
+  color: #a78bfa;
+  text-decoration: underline;
+}
+
+/* Мобілки */
+@media (max-width: 768px) {
+  .auth-form {
+    padding: 3rem;
+    margin: 4rem auto;
+  }
+
+  .auth-form h2 {
+    font-size: 2.8rem;
+  }
+}
