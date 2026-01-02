@@ -48,6 +48,14 @@ function Header() {
           <Link to="/">Події</Link>
           {user && <Link to="/tickets">Квитки</Link>}
         </nav>
+        <Link to="/scanner" className="scanner-link">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <path d="M4 4h6M4 4v6M20 4h-6M20 4v6M4 20h6M4 20v-6M20 20h-6M20 20v-6"
+          stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+  <span>Сканер</span>
+</Link>
+
 
         <div className="user-section">
           {user ? (
