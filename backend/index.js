@@ -148,6 +148,10 @@ app.post("/api/update-profile", verifyToken, async (req, res) => {
   }
 });
 
+// Простий health check для моніторингу
+app.get("/", (req, res) => {
+  res.status(200).send("OK");
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
