@@ -105,22 +105,32 @@ function Profile() {
 
   
 
- const saveProfile = async () => {
-  const token = await user.getIdToken();
+const saveProfile = async () => {
+  if (!user) return;
 
-  const response = await fetch("http://localhost:3000/api/update-profile", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${token}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(tempData)
-  });
+  try {
+    const token = await user.getIdToken();
 
-  if (response.ok) {
-    setProfileData(tempData);
-    setIsEditing(false);
-    alert("Профіль оновлено!");
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/update-profile`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(tempData)
+    });
+
+    if (response.ok) {
+      setProfileData(tempData);
+      setIsEditing(false);
+      alert("Профіль оновлено!");
+    } else {
+      const errorData = await response.json();
+      alert("Помилка: " + (errorData.error || "Не вдалося зберегти"));
+    }
+  } catch (error) {
+    console.error("Error saving profile:", error);
+    alert("Помилка мережі або сервер не відповідає");
   }
 };
 
