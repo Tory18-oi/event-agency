@@ -222,3 +222,12 @@ header {
     font-size: 1.2rem;
   }
 }
+.mobile-nav-links {
+  display: none; /* Ховаємо на десктопі */
+}
+
+@media (max-width: 768px) {
+  .mobile-nav-links {
+    display: block; /* Показуємо тільки на мобілках */
+  }
+}

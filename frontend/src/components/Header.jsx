@@ -44,7 +44,7 @@ function Header() {
           <h1>Event Agency</h1>
         </Link>
 
-        {/* Навігація — тільки на десктопі */}
+        {/* Панель навігації — тільки на десктопі */}
         <nav className="main-nav desktop-only">
           <Link to="/">Події</Link>
           {user && <Link to="/tickets">Квитки</Link>}
@@ -63,7 +63,7 @@ function Header() {
           )}
         </nav>
 
-        {/* Іконка користувача — завжди видима */}
+        {/* Іконка користувача */}
         <div className="user-section">
           <button className="user-icon-btn" onClick={toggleDropdown}>
             <svg
@@ -79,46 +79,36 @@ function Header() {
             </svg>
           </button>
 
-          {/* Розширений дропдаун */}
-          {dropdownOpen && (
-            <div className="dropdown-menu">
-              {user ? (
-                <>
-                  <p className="user-email">{user.email.split("@")[0]}</p>
-                  <Link to="/" onClick={() => setDropdownOpen(false)}>
-                    Події
-                  </Link>
-                  <Link to="/tickets" onClick={() => setDropdownOpen(false)}>
-                    Квитки
-                  </Link>
-                  <Link to="/scanner" onClick={() => setDropdownOpen(false)}>
-                    Сканер
-                  </Link>
-                  <Link to="/profile" onClick={() => setDropdownOpen(false)}>
-                    Мій кабінет
-                  </Link>
-                  <Link to="/my-tickets" onClick={() => setDropdownOpen(false)}>
-                    Мої квитки
-                  </Link>
-                  <button onClick={handleLogout} className="logout-link">
-                    Вийти
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link to="/" onClick={() => setDropdownOpen(false)}>
-                    Події
-                  </Link>
-                  <Link to="/login" onClick={() => setDropdownOpen(false)}>
-                    Вхід
-                  </Link>
-                  <Link to="/register" onClick={() => setDropdownOpen(false)}>
-                    Реєстрація
-                  </Link>
-                </>
-              )}
-            </div>
-          )}
+          {/* Єдине дропдаун-меню */}
+{dropdownOpen && (
+  <div className="dropdown-menu">
+    {user ? (
+      <>
+        <p className="user-email">{user.email.split("@")[0]}</p>
+
+        {/* Навігація — тільки на мобілках */}
+        <div className="mobile-nav-links">
+          <Link to="/" onClick={() => setDropdownOpen(false)}>Події</Link>
+          <Link to="/tickets" onClick={() => setDropdownOpen(false)}>Квитки</Link>
+          <Link to="/scanner" onClick={() => setDropdownOpen(false)}>Сканер</Link>
+        </div>
+
+        {/* Профільні посилання — завжди */}
+        <Link to="/profile" onClick={() => setDropdownOpen(false)}>Мій кабінет</Link>
+        <Link to="/my-tickets" onClick={() => setDropdownOpen(false)}>Мої квитки</Link>
+        <button onClick={handleLogout} className="logout-link">
+          Вийти
+        </button>
+      </>
+    ) : (
+      <>
+        <Link to="/" onClick={() => setDropdownOpen(false)}>Події</Link>
+        <Link to="/login" onClick={() => setDropdownOpen(false)}>Вхід</Link>
+        <Link to="/register" onClick={() => setDropdownOpen(false)}>Реєстрація</Link>
+      </>
+    )}
+  </div>
+)}
         </div>
       </div>
     </header>
