@@ -8,17 +8,17 @@
 }
 
 .event-detail {
-  max-width: 1400px; /* ← збільшили максимальну ширину */
+  max-width: 1400px; 
   width: 100%;
   background-color: #ffffff;
   border-radius: 28px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  padding: 4rem 6rem; /* ← більше відступів по боках для тексту */
+  padding: 4rem 6rem;
   color: #6b46c1;
   margin: 0 auto;
 }
 
-/* Заголовок */
+
 .event-detail h2 {
   font-size: 4rem;
   margin-bottom: 2rem;
@@ -27,15 +27,15 @@
   font-weight: 600;
 }
 
-/* Постер */
+
 .detail-poster {
   width: 100%;
-  max-width: 800px; /* ← зменшили максимальну ширину */
-  max-height: 500px; /* ← зменшили висоту */
+  max-width: 800px; 
+  max-height: 500px; 
   object-fit: contain;
   border-radius: 24px;
-  margin: 3rem auto; /* по центру */
-  display: block; /* щоб margin auto працював */
+  margin: 3rem auto;
+  display: block; 
   box-shadow: 0 15px 50px rgba(192, 132, 252, 0.3);
   transition: transform 0.4s;
 }
@@ -44,17 +44,17 @@
   transform: scale(1.03);
 }
 
-/* Опис і інфо */
+
 .detail-info {
   font-size: 1.7rem;
   line-height: 2;
   margin: 3rem auto;
-  text-align: left; /* або center, якщо хочеш по центру */
-  max-width: none; /* ← текст на всю ширину контейнера */
-  padding: 0 2rem; /* легкі відступи з боків для читабельності */
+  text-align: left; 
+  max-width: none; 
+  padding: 0 2rem; 
 }
 
-/* Галерея фото */
+
 .photos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -76,7 +76,7 @@
   box-shadow: 0 25px 70px rgba(192, 132, 252, 0.3);
 }
 
-/* Кнопки */
+
 .buy-ticket-btn {
   display: block;
   width: fit-content;

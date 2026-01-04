@@ -58,7 +58,7 @@ function EventDetails() {
   if (!event) {
     return (
       <section>
-        <h2>Подію не знайдено 😔</h2>
+        <h2>Подію не знайдено </h2>
         <Link to="/">← Повернутися на головну</Link>
       </section>
     );

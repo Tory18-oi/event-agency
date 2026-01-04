@@ -1,4 +1,4 @@
-/* Профіль — світлий лавандовий фон */
+
 .profile {
   min-height: calc(100vh - 200px);
   background: linear-gradient(to bottom, #f5efff, #e6d9ff);
@@ -7,7 +7,6 @@
   justify-content: center;
 }
 
-/* Картка профілю — білий фон */
 .profile-card {
   background-color: #ffffff;
   border-radius: 28px;
@@ -19,7 +18,6 @@
   border: 1px solid rgba(192, 132, 252, 0.2);
 }
 
-/* Шапка профілю */
 .profile-header {
   display: flex;
   align-items: center;
@@ -33,9 +31,9 @@
 .profile-avatar-wrapper {
   position: relative;
   display: flex;
-  flex-direction: column;      /* Вертикально: аватарка + кнопка */
-  align-items: center;         /* Все по центру */
-  gap: 1.5rem;                 /* Відступ між аватаркою і кнопкою */
+  flex-direction: column;      
+  align-items: center;         
+  gap: 1.5rem;                 
 }
 .profile-avatar-img {
   width: 160px;
@@ -51,7 +49,7 @@
   transform: scale(1.05);
 }
 
-/* Кнопка редагування профілю */
+
 .edit-profile-btn {
   margin-top: 1.5rem;
   background: linear-gradient(135deg, #c084fc, #a78bfa);
@@ -71,7 +69,7 @@
   box-shadow: 0 20px 40px rgba(192, 132, 252, 0.5);
 }
 
-/* Інформація */
+
 .profile-info h2 {
   font-size: 3rem;
   color: #8b5cf6;
@@ -124,7 +122,6 @@
   margin-top: 0.5rem;
 }
 
-/* Заголовки розділів */
 h3 {
   font-size: 2.8rem;
   margin: 4rem 0 2.5rem;
@@ -133,7 +130,6 @@ h3 {
   font-weight: 600;
 }
 
-/* Збережені події */
 .saved-list {
   list-style: none;
   padding: 0;
@@ -149,9 +145,9 @@ h3 {
   box-shadow: 0 15px 50px rgba(192, 132, 252, 0.3);
   transition: all 0.4s ease;
   display: flex;
-  flex-direction: column; /* Вертикально: постер + інфо + кнопка */
+  flex-direction: column; 
   border: 1px solid rgba(192, 132, 252, 0.2);
-  height: 100%; /* Щоб всі картки однакової висоти в рядку */
+  height: 100%; 
 }
 
 .saved-list li:hover {
@@ -161,14 +157,14 @@ h3 {
 
 .saved-poster {
   width: 100%;
-  height: 300px; /* Більша висота для акценту */
+  height: 300px; 
   object-fit: cover;
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
   transition: all 0.4s;
 }
 .saved-list li:hover .saved-poster {
-  transform: scale(1.05); /* Легке збільшення при ховері */
+  transform: scale(1.05); 
 }
 .saved-info {
   padding: 2.5rem;
@@ -177,11 +173,11 @@ h3 {
   flex-direction: column;
   justify-content: space-between;
   color: #6b46c1;
-  text-align: center; /* По центру для краси */
+  text-align: center; 
 }
 
 .saved-info strong {
-  font-size: 2rem; /* Більший заголовок */
+  font-size: 2rem; 
   color: #8b5cf6;
   margin-bottom: 1.5rem;
   display: block;
@@ -204,7 +200,7 @@ h3 {
   cursor: pointer;
   transition: all 0.4s;
   box-shadow: 0 10px 30px rgba(192, 132, 252, 0.4);
-  margin: 2rem auto 1.5rem; /* По центру і з відступом знизу */
+  margin: 2rem auto 1.5rem; 
   align-self: center;
 }
 .saved-list button:hover {
@@ -212,7 +208,6 @@ h3 {
   box-shadow: 0 20px 40px rgba(192, 132, 252, 0.5);
 }
 
-/* Історія квитків */
 .tickets-history {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -249,7 +244,6 @@ h3 {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* Кнопки дій */
 .profile-actions {
   display: flex;
   justify-content: center;
@@ -276,7 +270,6 @@ h3 {
   box-shadow: 0 20px 40px rgba(192, 132, 252, 0.5);
 }
 
-/* Кнопка виходу */
 .logout-btn {
   background: transparent;
   color: #ff6b9d;
@@ -299,20 +292,19 @@ h3 {
   transform: translateY(-6px);
 }
 
-/* Оверлей - фон з fade-in */
 .edit-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* Прозорий темний фон */
+  background: rgba(0, 0, 0, 0.4); 
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000; /* Вище всього */
+  z-index: 2000; 
   animation: fadeIn 0.4s ease-in-out forwards;
 }
 
@@ -323,11 +315,11 @@ h3 {
 
 /* Модальне вікно - scale + fade з bounce */
 .edit-modal {
-  background: linear-gradient(135deg, #ffffff, #f5efff); /* Білий з лавандовим градієнтом */
+  background: linear-gradient(135deg, #ffffff, #f5efff); 
   border-radius: 32px;
-  box-shadow: 0 30px 80px rgba(192, 132, 252, 0.5); /* Глибока тінь з лавандовим сяйвом */
-  padding: 2rem; /* Зменшили padding */
-  max-width: 500px; /* Зменшили max-width */
+  box-shadow: 0 30px 80px rgba(192, 132, 252, 0.5); 
+  padding: 2rem; 
+  max-width: 500px; 
   max-height: 80vh;
   width: 90%;
   overflow-y: auto;
@@ -335,7 +327,7 @@ h3 {
   display: flex;
   flex-direction: column;
   animation: bounceIn 0.5s ease-out forwards;
-  opacity: 0; /* Початок з 0 */
+  opacity: 0; 
 }
 
 .edit-modal h3 {
@@ -355,7 +347,7 @@ h3 {
     opacity: 0;
   }
   50% {
-    transform: scale(1.05); /* Легкий overshoot */
+    transform: scale(1.05); 
     opacity: 1;
   }
   100% {
@@ -386,20 +378,11 @@ h3 {
 .close-btn:hover {
   color: #a78bfa;
 }
-
-
-
-
-
-
-
-
-
 /* Форма всередині */
 .form-fields {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Зменшили gap */
+  gap: 1rem; 
   margin-bottom: 1.5rem;
 }
 
@@ -421,11 +404,11 @@ h3 {
 /* Кнопки дій */
 .modal-actions {
   display: flex;
-  justify-content: center; /* або space-between, якщо хочеш розтягнути */
+  justify-content: center;
   gap: 1.5rem;
   margin-top: 2rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(192, 132, 252, 0.2); /* опціонально — розділова лінія */
+  border-top: 1px solid rgba(192, 132, 252, 0.2); 
 }
 
 .cancel-btn {
@@ -526,7 +509,7 @@ gap: 1rem;  }
     font-size: 1.3rem;
   }
 
-  /* Збережені події — покращений дизайн карток */
+  /* Збережені події  */
 .saved-list {
   list-style: none;
   padding: 0;
@@ -542,9 +525,9 @@ gap: 1rem;  }
   box-shadow: 0 15px 50px rgba(192, 132, 252, 0.3);
   transition: all 0.4s ease;
   display: flex;
-  flex-direction: column; /* Вертикально: постер + інфо + кнопка */
+  flex-direction: column; 
   border: 1px solid rgba(192, 132, 252, 0.2);
-  height: 100%; /* Щоб всі картки однакової висоти в рядку */
+  height: 100%; 
 }
 
 .saved-list li:hover {
@@ -555,7 +538,7 @@ gap: 1rem;  }
 /* Постер — робимо помітнішим */
 .saved-poster {
   width: 100%;
-  height: 300px; /* Більша висота для акценту */
+  height: 300px; 
   object-fit: cover;
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
@@ -563,7 +546,7 @@ gap: 1rem;  }
 }
 
 .saved-list li:hover .saved-poster {
-  transform: scale(1.05); /* Легке збільшення при ховері */
+  transform: scale(1.05); 
 }
 
 /* Інформація */
@@ -574,11 +557,11 @@ gap: 1rem;  }
   flex-direction: column;
   justify-content: space-between;
   color: #6b46c1;
-  text-align: center; /* По центру для краси */
+  text-align: center; 
 }
 
 .saved-info strong {
-  font-size: 2rem; /* Більший заголовок */
+  font-size: 2rem; 
   color: #8b5cf6;
   margin-bottom: 1.5rem;
   display: block;
@@ -590,7 +573,7 @@ gap: 1rem;  }
   line-height: 1.6;
 }
 
-/* Кнопка "Деталі" — тепер добре видно і по центру внизу */
+/* Кнопка "Деталі"  */
 .saved-list button {
   background: linear-gradient(135deg, #c084fc, #a78bfa);
   color: white;
@@ -602,7 +585,7 @@ gap: 1rem;  }
   cursor: pointer;
   transition: all 0.4s;
   box-shadow: 0 10px 30px rgba(192, 132, 252, 0.4);
-  margin: 2rem auto 1.5rem; /* По центру і з відступом знизу */
+  margin: 2rem auto 1.5rem; 
   align-self: center;
 }
 

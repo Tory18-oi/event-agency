@@ -8,7 +8,6 @@
   will-change: transform, opacity;
 }
 
-/* Додатково можна додати легке сяйво */
 .trail-particle {
   filter: blur(1px);
 }

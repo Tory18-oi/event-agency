@@ -1,16 +1,16 @@
-/* Головна сторінка — список афіші */
+
 #events {
   min-height: calc(100vh - 200px);
-  background: linear-gradient(to bottom,  #ffffff, #d3b3d3); /* ← світліший градієнт */
+  background: linear-gradient(to bottom,  #ffffff, #d3b3d3); 
   padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 #events h2 {
-  font-size: 4.5rem; /* більший і помітніший */
+  font-size: 4.5rem; 
   margin-bottom: 5rem;
-  background: linear-gradient(135deg, #8b5cf6, #c084fc, #a78bfa); /* градієнтний текст */
+  background: linear-gradient(135deg, #8b5cf6, #c084fc, #a78bfa); 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -22,17 +22,15 @@
   animation: fadeInUp 1s ease-out;
 }
 
-/* Сітка карток */
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 3rem;
   width: 90%;
-  max-width: 1200px;
+  max-width: 1100px;
   padding: 0 2rem;
 }
 
-/* Картка події — білий фон */
 .event-card {
   background-color: #ffffff;
   border-radius: 28px;
@@ -47,7 +45,6 @@
   box-shadow: 0 25px 60px rgba(192, 132, 252, 0.4);
 }
 
-/* Постер */
 .event-poster {
   width: 100%;
   height: 400px;
@@ -59,7 +56,6 @@
   transform: scale(1.05);
 }
 
-/* Інформація */
 .event-info {
   padding: 2rem;
   color: #6b46c1;
@@ -87,8 +83,7 @@
   margin-top: 1.5rem;
 }
 
-/* Кнопка збереження */
-/* Кнопка збереження — нова, гарна */
+
 .save-btn {
   position: absolute;
   top: 1.5rem;

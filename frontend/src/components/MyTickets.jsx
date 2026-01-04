@@ -3,7 +3,7 @@ import { auth, db } from "../firebase/config";
 import { collection, query, where, onSnapshot, deleteDoc, doc,updateDoc } from "firebase/firestore";
 import { QRCodeSVG } from "qrcode.react";
 import eventsData from "../data/events.json";
-import "./MyTickets.css"; // створимо стилі нижче
+import "./MyTickets.css"; 
 import { Link } from "react-router-dom";
 
 function MyTickets() {

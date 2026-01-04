@@ -12,7 +12,7 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
-const bucket = admin.storage().bucket(); // ← це правильно для Admin SDK
+const bucket = admin.storage().bucket(); 
 
 const app = express();
 
@@ -22,7 +22,6 @@ app.use(express.json());
 // Multer для завантаження файлів
 const upload = multer({ storage: multer.memoryStorage() });
 
-// Мідлвара для перевірки токена
 const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization?.split("Bearer ")[1];
   if (!token) return res.status(401).json({ error: "No token provided" });
@@ -148,7 +147,6 @@ app.post("/api/update-profile", verifyToken, async (req, res) => {
   }
 });
 
-// Простий health check для моніторингу
 app.get("/", (req, res) => {
   res.status(200).send("OK");
 });

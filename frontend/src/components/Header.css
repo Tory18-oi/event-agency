@@ -92,7 +92,7 @@ header {
   stroke: #6b46c1;
 }
 
-/* Дропдаун меню */
+
 .dropdown-menu {
   position: absolute;
   right: 0;
@@ -194,4 +194,31 @@ header {
 
 .scanner-link:hover svg {
   stroke: #553c9a;
+}
+.desktop-only {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .dropdown-menu {
+    position: fixed;
+    top: 70px; /* Під хедером */
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+  }
+
+  .dropdown-menu a,
+  .dropdown-menu button {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+  }
 }

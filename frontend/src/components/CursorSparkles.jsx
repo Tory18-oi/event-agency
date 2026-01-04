@@ -8,9 +8,8 @@ function CursorSparkles() {
       const particle = document.createElement("div");
       particle.className = "trail-particle";
 
-      // Блідо-рожеві відтінки + трохи білого і лавандового
       const colors = [
-        "#fce7f3", // дуже блідий рожевий
+        "#fce7f3", 
         "#f8d1e6",
         "#f5b8d6",
         "#f7a8cf",
@@ -18,7 +17,7 @@ function CursorSparkles() {
         "#fbb6ce",
         "#ffccd5",
         "#ffe4e1",
-        "#e9d5ff", // легка лаванда для різноманітності
+        "#e9d5ff", 
         "#f0abfc"
       ];
       const color = colors[Math.floor(Math.random() * colors.length)];
@@ -52,7 +51,6 @@ function CursorSparkles() {
         }
       }, duration + 100);
 
-      // Обмежуємо кількість частинок (щоб не гальмувало)
       trail.push(particle);
       if (trail.length > 40) {
         const old = trail.shift();
@@ -61,7 +59,6 @@ function CursorSparkles() {
     };
 
     const handleMouseMove = (e) => {
-      // Створюємо 2-4 частинки при кожному русі
       const count = Math.floor(Math.random() * 3) + 2;
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
