@@ -1,4 +1,3 @@
-
 #events {
   min-height: calc(100vh - 200px);
   background: linear-gradient(to bottom,  #ffffff, #d3b3d3); 
@@ -47,7 +46,7 @@
 
 .event-poster {
   width: 100%;
-  height: 400px;
+  height: 250px; /* Основні афіші — 250px */
   object-fit: cover;
   transition: transform 0.4s;
 }
@@ -121,7 +120,7 @@
   box-shadow: 0 15px 35px rgba(255, 107, 157, 0.5);
 }
 
-/* Рекомендації */
+/* Рекомендації — менші картки та картинки */
 .recommendations-title {
   font-size: 3rem;
   margin: 6rem 0 3rem;
@@ -130,9 +129,10 @@
   font-weight: 600;
 }
 
-.event-card.recommended {
-  border: 3px solid #c084fc;
-  box-shadow: 0 0 30px rgba(192, 132, 252, 0.4);
+
+
+.event-card.recommended .event-poster {
+  height: 200px; /* Рекомендації — менші картинки */
 }
 
 .recommended-badge {
@@ -162,9 +162,14 @@
   }
 
   .event-poster {
-    height: 300px;
+    height: 200px; /* На мобілці — 200px для основних */
+  }
+
+  .event-card.recommended .event-poster {
+    height: 180px; /* Рекомендації на мобілці — ще менші */
   }
 }
+
 /* Забрати підкреслення у всіх посилань і тексту */
 a {
   text-decoration: none !important;
@@ -182,6 +187,7 @@ h3, h2, .event-info h3 {
 a:hover {
   text-decoration: none !important;
 }
+
 /* Анімація появи */
 @keyframes fadeInUp {
   from {
@@ -191,5 +197,86 @@ a:hover {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.no-events {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #6b46c1;
+  margin: 3rem 0;
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin: 2.5rem 0;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5efff 0%, #e6d9ff 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(147, 107, 252, 0.15);
+  border: 1px solid rgba(187, 134, 252, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+.filters-container input,
+.filters-container select {
+  padding: 0.9rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  background: white;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.filters-container input:focus,
+.filters-container select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(187, 134, 252, 0.3);
+  transform: translateY(-2px);
+}
+
+.filters-container button {
+  padding: 0.9rem 1.8rem;
+  background: linear-gradient(to right, #bb86fc, #9f6fdc);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 6px 15px rgba(187, 134, 252, 0.3);
+  transition: all 0.3s ease;
+}
+
+.filters-container button:hover {
+  background: linear-gradient(to right, #9f6fdc, #805ad5);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(187, 134, 252, 0.4);
+}
+
+.filters-container button:active {
+  transform: translateY(0);
+}
+
+/* Мобілка */
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .filters-container input,
+  .filters-container select {
+    min-width: 100%;
+  }
+
+  .filters-container button {
+    width: 100%;
   }
 }

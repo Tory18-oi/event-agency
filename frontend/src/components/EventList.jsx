@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase/config";
-import { collection, query, where, getDocs,addDoc, deleteDoc } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import eventsData from "../data/events.json";
 import "./EventList.css";
 
@@ -10,17 +10,29 @@ function EventList() {
   const [purchasedTickets, setPurchasedTickets] = useState([]);
   const user = auth.currentUser;
 
-  // Завантажуємо збережені події і куплені квитки
+  // Стани для фільтрації
+  const [searchTerm, setSearchTerm] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+
+  // Унікальні міста з location (витягуємо місто з рядка або region_id)
+  const cities = [...new Set(eventsData.map(event => {
+    // Якщо location містить місто, наприклад "Івано-Франківськ"
+    const match = event.location.match(/Івано-Франківськ|Київ|Львів|Одеса|Харків|Дніпро/);
+    return match ? match[0] : event.location.split(",")[0];
+  }))];
+
+  // Завантаження збережених і куплених
   useEffect(() => {
     if (user) {
       const fetchData = async () => {
-        // Збережені
         const savedQ = query(collection(db, "savedEvents"), where("userId", "==", user.uid));
         const savedSnap = await getDocs(savedQ);
         const savedIds = savedSnap.docs.map(doc => doc.data().eventId);
         setSavedEvents(savedIds);
 
-        // Куплені квитки
         const ticketsQ = query(collection(db, "tickets"), where("userId", "==", user.uid));
         const ticketsSnap = await getDocs(ticketsQ);
         const ticketEventIds = ticketsSnap.docs.map(doc => doc.data().eventId);
@@ -33,61 +45,72 @@ function EventList() {
     }
   }, [user]);
 
-  // Функція збереження (як раніше)
-const toggleSaveEvent = async (eventId) => {
-  if (!user) {
-    alert("Увійдіть в акаунт!");
-    return;
-  }
-
-  const isSaved = savedEvents.includes(eventId);
-  const endpoint = isSaved ? "/api/unsave-event" : "/api/save-event";
-
-  try {
-    const token = await user.getIdToken();
-
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}${endpoint}`, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ eventId })
-    });
-
-    if (response.ok) {
-      // Оновлюємо локальний стан
-      if (isSaved) {
-        setSavedEvents(savedEvents.filter(id => id !== eventId));
-      } else {
-        setSavedEvents([...savedEvents, eventId]);
-      }
-    } else {
-      const errorData = await response.json();
-      alert(errorData.error || "Помилка збереження");
+  // Функція збереження (залишається без змін)
+  const toggleSaveEvent = async (eventId) => {
+    if (!user) {
+      alert("Увійдіть в акаунт!");
+      return;
     }
-  } catch (error) {
-    console.error("Fetch error:", error);
-    alert("Помилка мережі або бекенд не відповідає");
-  }
-};
 
-  // Персональні рекомендації
+    const isSaved = savedEvents.includes(eventId);
+    const endpoint = isSaved ? "/api/unsave-event" : "/api/save-event";
+
+    try {
+      const token = await user.getIdToken();
+
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}${endpoint}`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ eventId })
+      });
+
+      if (response.ok) {
+        if (isSaved) {
+          setSavedEvents(savedEvents.filter(id => id !== eventId));
+        } else {
+          setSavedEvents([...savedEvents, eventId]);
+        }
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || "Помилка збереження");
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      alert("Помилка мережі або бекенд не відповідає");
+    }
+  };
+
+  // Фільтрація подій
+  const filteredEvents = eventsData.filter(event => {
+    const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesMinPrice = minPrice === "" || event.min_price >= Number(minPrice);
+    const matchesMaxPrice = maxPrice === "" || event.max_price <= Number(maxPrice);
+
+    // Фільтр по місту
+    const eventCity = event.location.includes(selectedCity) || event.region_id.includes(selectedCity.toLowerCase().replace(" ", "-"));
+    const matchesCity = selectedCity === "" || eventCity;
+
+    // Фільтр по даті (перетворюємо DD.MM.YYYY в ISO)
+    const eventDateISO = event.date.split(".").reverse().join("-"); // "16.02.2026" → "2026-02-16"
+    const matchesDate = selectedDate === "" || eventDateISO === selectedDate;
+
+    return matchesSearch && matchesMinPrice && matchesMaxPrice && matchesCity && matchesDate;
+  });
+
+  // Персональні рекомендації (залишається на основі збережених/купленних)
   const userInterests = [...new Set([
-    ...savedEvents.map(id => {
-      const e = eventsData.find(ev => ev.id === id);
-      return { type: e?.type, region: e?.region_id };
-    }),
-    ...purchasedTickets.map(id => {
-      const e = eventsData.find(ev => ev.id === id);
-      return { type: e?.type, region: e?.region_id };
-    })
+    ...savedEvents.map(id => eventsData.find(ev => ev.id === id)),
+    ...purchasedTickets.map(id => eventsData.find(ev => ev.id === id))
   ].filter(Boolean))];
 
   const recommendedEvents = eventsData
     .filter(event => {
       return userInterests.some(interest => 
-        interest.type === event.type || interest.region === event.region_id
+        interest.type === event.type || interest.region_id === event.region_id
       );
     })
     .filter(event => !savedEvents.includes(event.id) && !purchasedTickets.includes(event.id))
@@ -96,42 +119,89 @@ const toggleSaveEvent = async (eventId) => {
   return (
     <section id="events">
       <h2>Афіші подій</h2>
+
+      {/* Форма фільтрації */}
+      <div className="filters-container">
+        <input
+          type="text"
+          placeholder="Пошук по назві..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Мін. ціна"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Макс. ціна"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+        />
+        <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+          <option value="">Всі міста</option>
+          {cities.map(city => (
+            <option key={city} value={city}>{city}</option>
+          ))}
+        </select>
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+        />
+        <button onClick={() => {
+          setSearchTerm("");
+          setMinPrice("");
+          setMaxPrice("");
+          setSelectedCity("");
+          setSelectedDate("");
+        }}>
+          Очистити фільтри
+        </button>
+      </div>
+      {/* Основна афіша */}
       <div className="events-grid">
-        {eventsData.map((event) => (
-          <div key={event.id} className="event-card">
-            <Link to={`/event/${event.id}`}>
-              {event.image && <img src={event.image} alt={event.title} className="event-poster" />}
-              <div className="event-info">
-                <h3>{event.title}</h3>
-                <p>{event.date} о {event.time}</p>
-                <p>{event.short_description}</p>
-                {event.min_price > 0 ? (
-                  <p className="price">від {event.min_price} грн</p>
-                ) : (
-                  <p className="price">Вхід вільний</p>
-                )}
-              </div>
-            </Link>
-            {user && (
-              <button
-                className={`save-btn ${savedEvents.includes(event.id) ? "saved" : ""}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  toggleSaveEvent(event.id);
-                }}
-              >
-                {savedEvents.includes(event.id) ? "Збережено" : "♡ Зберегти"}
-              </button>
-            )}
-          </div>
-        ))}
+        {filteredEvents.length > 0 ? (
+          filteredEvents.map((event) => (
+            <div key={event.id} className="event-card">
+              <Link to={`/event/${event.id}`}>
+                {event.image && <img src={event.image} alt={event.title} className="event-poster" />}
+                <div className="event-info">
+                  <h3>{event.title}</h3>
+                  <p>{event.date} о {event.time}</p>
+                  <p>{event.short_description}</p>
+                  {event.min_price > 0 ? (
+                    <p className="price">від {event.min_price} грн</p>
+                  ) : (
+                    <p className="price">Вхід вільний</p>
+                  )}
+                </div>
+              </Link>
+              {user && (
+                <button
+                  className={`save-btn ${savedEvents.includes(event.id) ? "saved" : ""}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    toggleSaveEvent(event.id);
+                  }}
+                >
+                  {savedEvents.includes(event.id) ? "Збережено" : "♡ Зберегти"}
+                </button>
+              )}
+            </div>
+          ))
+        ) : (
+          <p>Події за вибраними фільтрами не знайдено.</p>
+        )}
       </div>
 
       {/* Персональні рекомендації */}
       {user && recommendedEvents.length > 0 && (
         <>
-          <h2 className="recommendations-title">Рекомендації для вас </h2>
+          <h2 className="recommendations-title">Рекомендації для вас</h2>
           <div className="events-grid">
             {recommendedEvents.map((event) => (
               <div key={event.id} className="event-card recommended">
@@ -153,7 +223,7 @@ const toggleSaveEvent = async (eventId) => {
                       toggleSaveEvent(event.id);
                     }}
                   >
-                    {savedEvents.includes(event.id) ? " Збережено" : "♡ Зберегти"}
+                    {savedEvents.includes(event.id) ? "Збережено" : "♡ Зберегти"}
                   </button>
                 )}
               </div>
