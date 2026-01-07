@@ -17,12 +17,39 @@ function EventList() {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
 
-  // Унікальні міста з location (витягуємо місто з рядка або region_id)
-  const cities = [...new Set(eventsData.map(event => {
-    // Якщо location містить місто, наприклад "Івано-Франківськ"
-    const match = event.location.match(/Івано-Франківськ|Київ|Львів|Одеса|Харків|Дніпро/);
-    return match ? match[0] : event.location.split(",")[0];
-  }))];
+  // Функція для витягування міста з location
+  const getCityFromLocation = (location) => {
+    if (!location) return "Інше";
+
+    // Список міст з твоєї JSON
+    const cityMap = {
+      "Івано-Франківськ": "Івано-Франківськ",
+      "Київ": "Київ",
+      "Львів": "Львів",
+      "Дрогобич": "Дрогобич",
+      "Чернівці": "Чернівці"
+    };
+
+    for (const city of Object.keys(cityMap)) {
+      if (location.includes(city)) {
+        return city;
+      }
+    }
+
+    // Запасний варіант — беремо текст після останньої коми (зазвичай місто)
+    const parts = location.split(",");
+    if (parts.length > 1) {
+      const potentialCity = parts[parts.length - 2].trim();
+      // Перевіряємо, чи це одне з відомих міст
+      if (Object.keys(cityMap).includes(potentialCity)) {
+        return potentialCity;
+      }
+    }
+    return "Інше";
+  };
+
+  // Унікальні міста (сортовані)
+  const cities = [...new Set(eventsData.map(event => getCityFromLocation(event.location)))].sort();
 
   // Завантаження збережених і куплених
   useEffect(() => {
@@ -86,22 +113,16 @@ function EventList() {
   // Фільтрація подій
   const filteredEvents = eventsData.filter(event => {
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
-
     const matchesMinPrice = minPrice === "" || event.min_price >= Number(minPrice);
     const matchesMaxPrice = maxPrice === "" || event.max_price <= Number(maxPrice);
-
-    // Фільтр по місту
-    const eventCity = event.location.includes(selectedCity) || event.region_id.includes(selectedCity.toLowerCase().replace(" ", "-"));
-    const matchesCity = selectedCity === "" || eventCity;
-
-    // Фільтр по даті (перетворюємо DD.MM.YYYY в ISO)
-    const eventDateISO = event.date.split(".").reverse().join("-"); // "16.02.2026" → "2026-02-16"
+    const matchesCity = selectedCity === "" || getCityFromLocation(event.location) === selectedCity;
+    const eventDateISO = event.date.split(".").reverse().join("-"); // "21.01.2026" → "2026-01-21"
     const matchesDate = selectedDate === "" || eventDateISO === selectedDate;
 
     return matchesSearch && matchesMinPrice && matchesMaxPrice && matchesCity && matchesDate;
   });
 
-  // Персональні рекомендації (залишається на основі збережених/купленних)
+  // Персональні рекомендації (без змін)
   const userInterests = [...new Set([
     ...savedEvents.map(id => eventsData.find(ev => ev.id === id)),
     ...purchasedTickets.map(id => eventsData.find(ev => ev.id === id))
@@ -161,6 +182,7 @@ function EventList() {
           Очистити фільтри
         </button>
       </div>
+
       {/* Основна афіша */}
       <div className="events-grid">
         {filteredEvents.length > 0 ? (
